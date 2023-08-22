@@ -1,3 +1,4 @@
+//backend Server
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import { Configuration, OpenAIApi } from "openai";
@@ -7,10 +8,10 @@ const PORT: number = 8000;
 
 const app: Application = express();
 
-// Configure CORS to allow requests from localhost:3000
+
 const corsOptions = {
   origin: "http://localhost:3000",
-  optionsSuccessStatus: 200, // Some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -23,7 +24,6 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-// Correct the route definition by adding a forward slash before "completions"
 app.post("/completions", async (req: Request, res: Response) => {
   try {
     const completion = await openai.createChatCompletion({
